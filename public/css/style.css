@@ -166,6 +166,26 @@ body {
   align-items: center;
   text-align: center;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden; /* ضروري لكي يلتصق البنر بحواف الكرت المقوسة من الأعلى */
+}
+
+/* تنسيق بنر البروفايل للزوار */
+.profile-banner {
+  width: calc(100% + 48px);
+  height: 130px;
+  margin: -36px -24px 20px -24px;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  position: relative;
+}
+
+.profile-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .avatar-wrap {
