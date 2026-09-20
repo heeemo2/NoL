@@ -34,10 +34,10 @@ body {
   padding: 0;
 }
 
-/* الهيدر العلوي - اسم الموقع في المنتصف تماماً */
+/* هيدر الموقع الموحد - اسم الموقع في المنتصف تماماً بكل الصفحات */
 .site-header {
   width: 100%;
-  background: rgba(15, 13, 26, 0.7);
+  background: rgba(15, 13, 26, 0.8);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -60,7 +60,88 @@ body {
   text-decoration: none;
 }
 
-/* حاوية الصفحة الرئيسية وسط الشاشة */
+/* تنسيق صفحة الهبوط index */
+.auth-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 16px;
+  margin: auto;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  padding: 40px 28px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.auth-logo {
+  font-size: 32px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: var(--text-sub);
+  margin-bottom: 28px;
+  line-height: 1.7;
+}
+
+.landing-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.landing-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.landing-links a.primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(138, 127, 255, 0.3);
+}
+
+.landing-links a.ghost {
+  background: var(--link-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+}
+
+.landing-links a:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+/* تنسيق صفحة البروفايل profile */
 .page {
   width: 100%;
   max-width: 460px;
@@ -167,7 +248,7 @@ body {
   padding: 20px 0;
 }
 
-/* الفوتر في الأسفل تماماً */
+/* الفوتر العام في أسفل الصفحة تماماً */
 .footer {
   font-size: 13px;
   color: var(--text-sub);
@@ -185,7 +266,7 @@ body {
 }
 
 @media (max-width: 380px) {
-  .card {
+  .card, .auth-card {
     padding: 28px 18px 22px;
   }
 }
