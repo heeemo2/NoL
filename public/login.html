@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>تسجيل الدخول | NoL</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/auth.css" />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">NoL</div>
+      <p class="auth-subtitle">سجّل الدخول لإدارة صفحتك</p>
+
+      <form id="login-form">
+        <div class="auth-field">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="auth-field">
+          <label>كلمة المرور</label>
+          <input type="password" id="password" placeholder="كلمة المرور" required />
+        </div>
+
+        <button type="submit" id="submit-btn" class="auth-submit">دخول</button>
+        <p class="auth-error" id="error-msg"></p>
+      </form>
+
+      <div class="auth-switch">
+        ليس لديك حساب؟ <a href="/signup.html">إنشاء حساب جديد</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/login.js"></script>
+</body>
+</html>

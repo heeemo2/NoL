@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>إنشاء حساب | NoL</title>
+<link rel="stylesheet" href="/css/style.css" />
+<link rel="stylesheet" href="/css/auth.css" />
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="auth-page">
+    <div class="auth-card">
+      <div class="auth-logo">NoL</div>
+      <p class="auth-subtitle">أنشئ حسابك واحجز رابطك الخاص</p>
+
+      <form id="signup-form">
+        <div class="auth-field">
+          <label>اسم المستخدم (رابط صفحتك)</label>
+          <input type="text" id="username" placeholder="ibrahim" autocomplete="off" required />
+        </div>
+        <div class="username-preview" id="username-preview"></div>
+
+        <div class="auth-field">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="email" placeholder="you@example.com" required />
+        </div>
+
+        <div class="auth-field">
+          <label>كلمة المرور</label>
+          <input type="password" id="password" placeholder="6 أحرف على الأقل" minlength="6" required />
+        </div>
+
+        <button type="submit" id="submit-btn" class="auth-submit">إنشاء الحساب</button>
+        <p class="auth-error" id="error-msg"></p>
+      </form>
+
+      <div class="auth-switch">
+        لديك حساب بالفعل؟ <a href="/login.html">تسجيل الدخول</a>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/js/signup.js"></script>
+</body>
+</html>
