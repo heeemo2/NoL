@@ -11,6 +11,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
+  
+  <!-- هيدر اسم الموقع NoL -->
+  <header class="site-header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: rgba(0,0,0,0.2); border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="logo" style="font-size: 24px; font-weight: 800; color: #fff; letter-spacing: 1px;">NoL</div>
+    <button id="logout-btn-header" class="btn ghost small" style="display:none;">تسجيل الخروج</button>
+  </header>
+
   <div class="admin-page">
 
     <!-- شاشة تحميل أولية (أثناء التحقق من حالة تسجيل الدخول) -->
@@ -32,7 +39,7 @@
     </div>
 
     <!-- لوحة التحكم -->
-    <div id="dashboard" class="admin-card" style="display:none">
+    <div id="dashboard" class="admin-card" style="display:none; width: 100%; max-width: 600px;">
       <div class="admin-header">
         <h2>لوحة التحكم</h2>
         <button id="logout-btn" class="btn ghost small">تسجيل الخروج</button>
@@ -48,6 +55,14 @@
 
       <section class="section">
         <h3>الملف الشخصي</h3>
+        
+        <!-- معاينة البنر والصورة الدائرية (بنفس فكرة التصميم المطلوب) -->
+        <div class="profile-banner-preview" id="banner-preview-container" style="position: relative; width: 100%; height: 160px; background: linear-gradient(135deg, #6366f1, #a855f7); border-radius: 12px; margin-bottom: 50px;">
+          <div class="avatar-circle-wrapper" style="position: absolute; bottom: -35px; right: 30px; width: 80px; height: 80px; border-radius: 50%; border: 4px solid #1e1b4b; overflow: hidden; background: #333;">
+            <img id="avatar-preview-img" src="" alt="صورة البروفايل" style="width: 100%; height: 100%; object-fit: cover;" />
+          </div>
+        </div>
+
         <label>الاسم</label>
         <input type="text" id="profile-name" placeholder="اسمك" />
         <label>النبذة التعريفية</label>
@@ -86,6 +101,11 @@
       </section>
     </div>
   </div>
+
+  <!-- حقوق النشر في أسفل الصفحة -->
+  <footer class="site-footer" style="text-align: center; padding: 20px; color: #888; font-size: 14px; margin-top: 40px;">
+    <p>جميع الحقوق محفوظة © 2026 <span style="color: #a855f7; font-weight: bold;">NoL</span></p>
+  </footer>
 
   <script type="module" src="/js/admin.js"></script>
 </body>
