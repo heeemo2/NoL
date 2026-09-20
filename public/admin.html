@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>لوحة تحكم NoL</title>
-<link rel="stylesheet" href="/css/style.css" />
-<link rel="stylesheet" href="/css/auth.css" />
-<link rel="stylesheet" href="/css/admin.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>لوحة تحكم NoL</title>
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/auth.css" />
+  <link rel="stylesheet" href="/css/admin.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-  
-  <!-- هيدر شعار الموقع NoL في الأعلى في المنتصف -->
+
+  <!-- الهيدر العلوي: شعار NoL في المنتصف تماماً -->
   <header class="site-header">
     <div class="logo">NoL</div>
-    <button id="logout-btn-header" class="btn ghost small" style="display:none;">تسجيل الخروج</button>
   </header>
 
-  <div class="admin-page">
+  <main class="admin-main-container">
 
-    <!-- شاشة تحميل أولية -->
+    <!-- شاشة التحميل -->
     <div id="loading-screen" class="admin-card">
       <p style="text-align: center;">جارٍ التحقق...</p>
     </div>
 
-    <!-- خطوة حجز اسم المستخدم -->
+    <!-- شاشة حجز اسم المستخدم -->
     <div id="claim-screen" class="admin-card" style="display:none">
       <h2>اختر رابط صفحتك</h2>
       <p class="auth-subtitle">هذا هو الرابط الذي ستشاركه مع الآخرين</p>
@@ -38,23 +37,25 @@
       <p class="auth-error" id="claim-error"></p>
     </div>
 
-    <!-- لوحة التحكم المرتبة -->
+    <!-- لوحة التحكم الرئيسية -->
     <div id="dashboard" class="admin-card dashboard-card" style="display:none;">
-      <div class="admin-header">
+      
+      <div class="admin-header-row">
         <h2>لوحة التحكم</h2>
         <button id="logout-btn" class="btn ghost small">تسجيل الخروج</button>
       </div>
 
+      <!-- قسم الملف الشخصي -->
       <section class="section">
         <h3>الملف الشخصي</h3>
         
-        <!-- حقول رفع الصور المخفية -->
         <input type="file" id="profile-image-input" accept="image/*" style="display: none;" />
         <input type="file" id="banner-image-input" accept="image/*" style="display: none;" />
 
-        <!-- البنر والصورة الدائرية البارزة فوقه -->
+        <!-- حاوية البنر والدائرة -->
         <div class="profile-banner-preview" id="banner-preview-container" title="اضغط لتغيير البنر">
           <div class="banner-edit-overlay"><i class="fa-solid fa-camera"></i> تغير البنر</div>
+          
           <div class="avatar-circle-wrapper" id="avatar-container" title="اضغط لتغيير الصورة الشخصية">
             <div class="avatar-edit-overlay"><i class="fa-solid fa-camera"></i></div>
             <img id="avatar-preview-img" src="" alt="صورة البروفايل" />
@@ -73,6 +74,7 @@
         <p id="profile-msg" class="msg-text"></p>
       </section>
 
+      <!-- قسم إدارة الروابط -->
       <section class="section">
         <h3>الروابط</h3>
         <div id="links-list" class="links-list"></div>
@@ -101,7 +103,7 @@
       </section>
 
       <!-- صندوق نسخ الرابط في أسفل لوحة التحكم -->
-      <section class="section" style="border-bottom: none; padding-bottom: 0;">
+      <section class="section last-section">
         <div class="my-link-box" id="my-link-box">
           <div class="my-link-box-title">رابط صفحتك الشخصية (انسخه وشاركه مع أصدقائك)</div>
           <div class="my-link-box-row">
@@ -112,7 +114,7 @@
       </section>
 
     </div>
-  </div>
+  </main>
 
   <!-- حقوق النشر في أسفل الصفحة تماماً -->
   <footer class="site-footer">
