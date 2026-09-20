@@ -24,7 +24,7 @@
       <p class="auth-subtitle">هذا هو الرابط الذي ستشاركه مع الآخرين</p>
       <div class="auth-field">
         <label>اسم المستخدم</label>
-        <input type="text" id="claim-username" placeholder="ibrahim" autocomplete="off" />
+        <input type="text" id="claim-username" placeholder="username" autocomplete="off" />
       </div>
       <div class="username-preview" id="claim-preview"></div>
       <button id="claim-btn" class="auth-submit">حفظ ومتابعة</button>
@@ -38,10 +38,12 @@
         <button id="logout-btn" class="btn ghost small">تسجيل الخروج</button>
       </div>
 
-      <div class="my-link-box">
-        <span>رابط صفحتك:</span>
-        <a id="my-link" href="#" target="_blank"></a>
-        <button id="copy-link-btn" class="btn ghost small" title="نسخ"><i class="fa-solid fa-copy"></i></button>
+      <div class="my-link-box" id="my-link-box">
+        <div class="my-link-box-title">رابط صفحتك الشخصية</div>
+        <div class="my-link-box-row">
+          <a id="my-link" href="#" target="_blank"></a>
+          <button id="copy-link-btn" class="btn primary small"><i class="fa-solid fa-copy"></i> نسخ الرابط</button>
+        </div>
       </div>
 
       <section class="section">
