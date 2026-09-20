@@ -1,28 +1,32 @@
+/* إعدادات عامة */
 body {
-  background-color: #0f0d1a;
+  background-color: #0b0914;
   color: #fff;
   font-family: 'Tajawal', sans-serif;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-/* تنسيق هيدر شعار NoL العلوي في المنتصف */
+/* هيدر الموقع - شعار NoL في المنتصف تماماً */
 .site-header {
+  width: 100%;
+  background: rgba(15, 13, 26, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px 20px;
-  background: rgba(15, 13, 26, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  width: 100%;
+  padding: 16px 0;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
 }
 
 .site-header .logo {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 800;
   background: linear-gradient(135deg, #a855f7, #6366f1);
   -webkit-background-clip: text;
@@ -30,70 +34,71 @@ body {
   letter-spacing: 2px;
 }
 
-.admin-page {
-  min-height: calc(100vh - 140px);
+/* الحاوية الرئيسية لتكون منسقة ومرتبة */
+.admin-main-container {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 30px 16px;
+  padding: 24px 16px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* كرت لوحة التحكم بتصميم أنيق ومريح */
 .admin-card {
   width: 100%;
-  max-width: 540px;
-  background: rgba(30, 27, 75, 0.45);
+  max-width: 520px;
+  background: rgba(26, 23, 56, 0.5);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
   padding: 24px 20px;
-  backdrop-filter: blur(18px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
-.dashboard-card {
-  max-width: 580px;
-}
-
-.admin-header {
+.admin-header-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+  align-items: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   padding-bottom: 12px;
+  margin-bottom: 16px;
 }
 
-.admin-header h2 {
+.admin-header-row h2 {
   margin: 0;
   font-size: 18px;
+  color: #fff;
 }
 
-/* تصميم البنر الاحترافي */
+/* البنر الاحترافي */
 .profile-banner-preview {
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 140px;
   background: linear-gradient(135deg, #6366f1, #a855f7);
   border-radius: 14px;
   margin-top: 10px;
-  margin-bottom: 60px; /* مساحة كافية لكي تظهر الدائرة بالأسفل دون قص */
+  margin-bottom: 55px; /* مساحة كافية لتستقر الدائرة بالأسفل بدون اختفاء */
   cursor: pointer;
-  overflow: visible; /* مهم جداً لتظهر الدائرة خارج حدود البنر */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  overflow: visible;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 .banner-edit-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.4);
   border-radius: 14px;
   display: flex;
   gap: 8px;
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -103,19 +108,19 @@ body {
   opacity: 1;
 }
 
-/* تصميم الصورة الدائرية البارزة فوق البنر */
+/* صورة البروفايل الدائرية البارزة فوق البنر تماماً */
 .avatar-circle-wrapper {
   position: absolute;
-  bottom: -45px; /* لإخراجها لتتوسط حافة البنر السفلية تماماً */
-  right: 25px;   /* مكانها على اليمين بشكل أنيق */
-  width: 90px;
-  height: 90px;
+  bottom: -42px;
+  right: 20px;
+  width: 84px;
+  height: 84px;
   border-radius: 50%;
-  border: 4px solid #1a173a;
+  border: 4px solid #1a1738;
   overflow: hidden;
   background: #252244;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
   z-index: 10;
 }
 
@@ -127,7 +132,7 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  font-size: 16px;
+  font-size: 15px;
   opacity: 0;
   transition: opacity 0.2s ease;
   z-index: 2;
@@ -145,64 +150,21 @@ body {
   z-index: 1;
 }
 
-/* صندوق رابط الصفحة الشخصية */
-.my-link-box {
-  margin-top: 10px;
-  padding: 16px;
-  border-radius: 14px;
-  background: rgba(99, 102, 241, 0.08);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  transition: box-shadow 0.2s ease;
-}
-
-.my-link-box.highlight {
-  animation: nol-pulse 1.4s ease;
-}
-
-@keyframes nol-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.6); }
-  70% { box-shadow: 0 0 0 14px rgba(168, 85, 247, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
-}
-
-.my-link-box-title {
-  font-size: 13px;
-  color: #c7d2fe;
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-
-.my-link-box-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.my-link-box-row a {
-  color: #a855f7;
-  font-weight: 700;
-  text-decoration: none;
-  direction: ltr;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 14px;
-  background: rgba(0,0,0,0.2);
-  padding: 8px 12px;
-  border-radius: 8px;
-}
-
+/* الأقسام والنماذج */
 .section {
-  margin-top: 24px;
-  padding-top: 18px;
+  margin-top: 20px;
+  padding-top: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+.last-section {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
 .section h3 {
-  margin-top: 0;
+  margin: 0 0 12px 0;
   font-size: 15px;
   color: #e2e8f0;
 }
@@ -215,7 +177,6 @@ label {
 }
 
 input[type="text"],
-input[type="password"],
 textarea,
 select {
   width: 100%;
@@ -240,6 +201,7 @@ textarea {
   resize: vertical;
 }
 
+/* الأزرار */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -270,7 +232,7 @@ textarea {
 }
 
 .btn.small {
-  padding: 6px 14px;
+  padding: 6px 12px;
   font-size: 12px;
   width: auto;
 }
@@ -282,6 +244,7 @@ textarea {
   text-align: center;
 }
 
+/* قائمة الروابط وإدارتها */
 .links-list {
   display: flex;
   flex-direction: column;
@@ -328,7 +291,7 @@ textarea {
 
 .link-item-actions {
   display: flex;
-  gap: 6px;
+  gap: 5px;
 }
 
 .link-item-actions button {
@@ -336,21 +299,17 @@ textarea {
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
   border-radius: 8px;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.link-item-actions button:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
 .add-link-form {
-  padding-top: 12px;
+  padding-top: 10px;
   border-top: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
@@ -365,14 +324,52 @@ textarea {
   margin-bottom: 10px;
 }
 
+/* صندوق رابط الصفحة الشخصية */
+.my-link-box {
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.my-link-box-title {
+  font-size: 12px;
+  color: #c7d2fe;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.my-link-box-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.my-link-box-row a {
+  color: #a855f7;
+  font-weight: 700;
+  text-decoration: none;
+  direction: ltr;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  background: rgba(0,0,0,0.25);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
 /* حقوق النشر في أسفل الصفحة */
 .site-footer {
   text-align: center;
-  padding: 24px;
+  padding: 20px;
   color: #71717a;
   font-size: 13px;
   width: 100%;
-  margin-top: auto;
+  background: rgba(11, 9, 20, 0.8);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .site-footer span {
