@@ -1,8 +1,9 @@
 .admin-page {
   min-height: 100vh;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding: 40px 16px;
 }
 
@@ -16,6 +17,10 @@
   backdrop-filter: blur(18px);
 }
 
+.dashboard-card {
+  max-width: 600px;
+}
+
 .admin-card h2 {
   margin-top: 0;
 }
@@ -25,6 +30,52 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
+}
+
+/* تنسيق الهيدر العلوي */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  width: 100%;
+}
+
+.site-header .logo {
+  font-size: 24px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+/* تنسيق البنر ومعاينة الصورة */
+.profile-banner-preview {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  border-radius: 12px;
+  margin-bottom: 50px;
+}
+
+.avatar-circle-wrapper {
+  position: absolute;
+  bottom: -35px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 4px solid #1e1b4b;
+  overflow: hidden;
+  background: #333;
+}
+
+.avatar-circle-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .my-link-box {
@@ -231,4 +282,19 @@ textarea {
   margin: 0 0 4px;
   font-size: 14px;
   color: var(--text-sub);
+}
+
+/* تنسيق الفوتر في الأسفل */
+.site-footer {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+  font-size: 14px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.site-footer span {
+  color: #a855f7;
+  font-weight: bold;
 }
