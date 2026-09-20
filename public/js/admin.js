@@ -132,15 +132,29 @@ claimBtn.addEventListener("click", async () => {
 });
 
 // ---------- نسخ الرابط ----------
+const COPY_BTN_DEFAULT_HTML = copyLinkBtn.innerHTML;
+
 copyLinkBtn.addEventListener("click", async () => {
   try {
     await navigator.clipboard.writeText(myLinkEl.href);
-    copyLinkBtn.innerHTML = '<i class="fa-solid fa-check"></i>';
-    setTimeout(() => (copyLinkBtn.innerHTML = '<i class="fa-solid fa-copy"></i>'), 1200);
+    copyLinkBtn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ ✅';
+    setTimeout(() => (copyLinkBtn.innerHTML = COPY_BTN_DEFAULT_HTML), 1500);
   } catch (err) {
     // تجاهل - بعض المتصفحات تمنع النسخ التلقائي بدون تفاعل مباشر
   }
 });
+
+// ---------- إبراز رابط الصفحة (يُستدعى بعد أي عملية حفظ ناجحة) ----------
+function flashMyLinkBox() {
+  const box = document.getElementById("my-link-box");
+  if (!box) return;
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+  box.classList.remove("highlight");
+  // إعادة تشغيل الـ animation حتى لو استُدعيت الدالة أكثر من مرة متتالية
+  void box.offsetWidth;
+  box.classList.add("highlight");
+  setTimeout(() => box.classList.remove("highlight"), 1500);
+}
 
 // ---------- حفظ البروفايل ----------
 saveProfileBtn.addEventListener("click", async () => {
@@ -157,7 +171,12 @@ saveProfileBtn.addEventListener("click", async () => {
       }),
     });
     const data = await res.json();
-    profileMsg.textContent = res.ok ? "تم الحفظ بنجاح ✅" : (data.error || "حدث خطأ");
+    if (res.ok) {
+      profileMsg.textContent = "تم الحفظ بنجاح ✅";
+      flashMyLinkBox();
+    } else {
+      profileMsg.textContent = data.error || "حدث خطأ";
+    }
   } catch (err) {
     profileMsg.textContent = "تعذر الاتصال بالسيرفر";
   }
@@ -241,7 +260,8 @@ addLinkBtn.addEventListener("click", async () => {
     if (res.ok) {
       newLinkLabel.value = "";
       newLinkUrl.value = "";
-      loadMe();
+      await loadMe();
+      flashMyLinkBox();
     } else {
       alert(data.error || "حدث خطأ");
     }
