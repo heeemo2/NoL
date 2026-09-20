@@ -1,11 +1,11 @@
 // public/js/firebase-config.js
-// إعدادات Firebase الخاصة بالواجهة الأمامية (Client SDK) — تُستخدم فقط لتسجيل الدخول/التسجيل
-// هذه القيم ليست سرية (على عكس مفتاح Service Account في السيرفر)، ويمكن أن تكون ظاهرة في المتصفح بأمان
-// احصل عليها من: Firebase Console → Project Settings → General → Your apps → Web app (</>) 
-
 export const firebaseConfig = {
-  apiKey: "ضع_API_KEY_هنا",
-  authDomain: "your-project-id.firebaseapp.com",
-  projectId: "your-project-id",
-  appId: "ضع_APP_ID_هنا",
+  apiKey: "AIzaSyD_abwP-CHlTsjVnRvucOlUByb_7RJTF18",
+  authDomain: "nol-app.firebaseapp.com",
+  databaseURL: "https://nol-app-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "nol-app",
+  storageBucket: "nol-app.firebasestorage.app",
+  messagingSenderId: "735703169485",
+  appId: "1:735703169485:web:8ab39110c6e0e1b491ec84",
+  measurementId: "G-BZ3KWSWG9K"
 };
