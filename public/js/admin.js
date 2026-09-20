@@ -1,4 +1,3 @@
-// public/js/admin.js
 // لوحة تحكم كل مستخدم: تتطلب تسجيل دخول عبر Firebase Auth، وتعرض فقط بيانات صاحب الحساب
 
 import { auth, onAuthStateChanged, signOut } from "./firebase-client.js";
@@ -27,6 +26,11 @@ const avatarPreviewImg = document.getElementById("avatar-preview-img"); // عن�
 const saveProfileBtn = document.getElementById("save-profile-btn");
 const profileMsg = document.getElementById("profile-msg");
 
+// حقول إدخال الملفات المخفية للرفع المباشر عبر الضغط على البنر والدائرة
+const profileImageInput = document.getElementById("profile-image-input");
+const bannerImageInput = document.getElementById("banner-image-input");
+const bannerPreviewContainer = document.getElementById("banner-preview-container");
+
 const linksList = document.getElementById("links-list");
 const newLinkLabel = document.getElementById("new-link-label");
 const newLinkUrl = document.getElementById("new-link-url");
@@ -34,6 +38,7 @@ const newLinkIcon = document.getElementById("new-link-icon");
 const addLinkBtn = document.getElementById("add-link-btn");
 
 let currentUser = null;
+let bannerUrlValue = ""; // لحفظ رابط البنر إذا كان مدعوماً في قاعدة البيانات
 
 function showOnly(el) {
   [loadingScreen, claimScreen, dashboard].forEach((s) => (s.style.display = "none"));
@@ -85,6 +90,14 @@ async function loadMe() {
       avatarPreviewImg.src = "https://via.placeholder.com/150";
     }
 
+    // تحديث البنر إذا وجد في البيانات
+    if (data.profile.bannerUrl && bannerPreviewContainer) {
+      bannerUrlValue = data.profile.bannerUrl;
+      bannerPreviewContainer.style.backgroundImage = `url('${data.profile.bannerUrl}')`;
+      bannerPreviewContainer.style.backgroundSize = "cover";
+      bannerPreviewContainer.style.backgroundPosition = "center";
+    }
+
     renderLinksAdmin(data.links || []);
 
     showOnly(dashboard);
@@ -94,7 +107,7 @@ async function loadMe() {
   }
 }
 
-// تحديث المعاينة مباشرة أثناء الكتابة في خانة رابط الصورة
+// تحديث المعاينة مباشرة أثناء الكتابة في خانة رابط الصورة المخفية (إن وجدت)
 if (profileAvatar && avatarPreviewImg) {
   profileAvatar.addEventListener("input", () => {
     const url = profileAvatar.value.trim();
@@ -102,7 +115,7 @@ if (profileAvatar && avatarPreviewImg) {
   });
 }
 
-// ---------- دالة رفع الصور السحابي إلى Cloudinary من الجوال ----------
+// ---------- دالة رفع الصور السحابي إلى Cloudinary من الجوال أو الكمبيوتر ----------
 async function uploadImageToCloudinary(file) {
   const formData = new FormData();
   formData.append("file", file);
@@ -120,43 +133,58 @@ async function uploadImageToCloudinary(file) {
   return data.secure_url;
 }
 
-// إضافة زر اختيار ملف صورة من الجهاز بجانب خانة رابط الصورة (إن لم يكن موجوداً في HTML سنحقنه برمجياً أو ندعمه)
-document.addEventListener("DOMContentLoaded", () => {
-  if (profileAvatar && profileAvatar.parentNode) {
-    const uploadWrapper = document.createElement("div");
-    uploadWrapper.style.marginTop = "8px";
-    uploadWrapper.innerHTML = `
-      <label class="btn-upload-file" style="display: inline-block; background: #4f46e5; color: white; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 14px;">
-        <i class="fa-solid fa-cloud-arrow-up"></i> رفع صورة من الاستديو / الجهاز
-        <input type="file" id="cloudinary-file-input" accept="image/*" style="display: none;">
-      </label>
-      <span id="upload-progress-text" style="margin-inline-start: 10px; font-size: 13px; color: #a1a1aa;"></span>
-    `;
-    profileAvatar.parentNode.appendChild(uploadWrapper);
-
-    const fileInput = document.getElementById("cloudinary-file-input");
-    const progressText = document.getElementById("upload-progress-text");
-
-    fileInput.addEventListener("change", async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      try {
-        progressText.textContent = "جاري الرفع...";
-        const url = await uploadImageToCloudinary(file);
-        profileAvatar.value = url;
-        if (avatarPreviewImg) {
-          avatarPreviewImg.src = url;
-        }
-        progressText.textContent = "تم الرفع بنجاح ✅";
-        setTimeout(() => { progressText.textContent = ""; }, 3000);
-      } catch (err) {
-        console.error(err);
-        progressText.textContent = "خطأ في الرفع ❌";
-      }
+// ---------- تفعيل الضغط المباشر على الدائرة الشخصية للرفع ----------
+if (avatarPreviewImg && profileImageInput) {
+  const avatarWrapper = document.getElementById("avatar-container");
+  if (avatarWrapper) {
+    avatarWrapper.addEventListener("click", () => {
+      profileImageInput.click();
     });
   }
-});
+
+  profileImageInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      profileMsg.textContent = "جاري رفع الصورة الشخصية...";
+      const url = await uploadImageToCloudinary(file);
+      profileAvatar.value = url;
+      avatarPreviewImg.src = url;
+      profileMsg.textContent = "تم رفع الصورة بنجاح ✅ (اضغط حفظ البروفايل للتثبيت)";
+      setTimeout(() => { profileMsg.textContent = ""; }, 4000);
+    } catch (err) {
+      console.error(err);
+      profileMsg.textContent = "خطأ في رفع الصورة الشخصية ❌";
+    }
+  });
+}
+
+// ---------- تفعيل الضغط المباشر على البنر للرفع ----------
+if (bannerPreviewContainer && bannerImageInput) {
+  bannerPreviewContainer.addEventListener("click", () => {
+    bannerImageInput.click();
+  });
+
+  bannerImageInput.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      profileMsg.textContent = "جاري رفع صورة البنر...";
+      const url = await uploadImageToCloudinary(file);
+      bannerUrlValue = url;
+      bannerPreviewContainer.style.backgroundImage = `url('${url}')`;
+      bannerPreviewContainer.style.backgroundSize = "cover";
+      bannerPreviewContainer.style.backgroundPosition = "center";
+      profileMsg.textContent = "تم رفع البنر بنجاح ✅ (اضغط حفظ البروفايل للتثبيت)";
+      setTimeout(() => { profileMsg.textContent = ""; }, 4000);
+    } catch (err) {
+      console.error(err);
+      profileMsg.textContent = "خطأ في رفع البنر ❌";
+    }
+  });
+}
 
 // ---------- حجز اسم المستخدم ----------
 let checkTimer = null;
@@ -244,6 +272,7 @@ saveProfileBtn.addEventListener("click", async () => {
         name: profileName.value.trim(),
         bio: profileBio.value.trim(),
         avatarUrl: profileAvatar.value.trim(),
+        bannerUrl: bannerUrlValue,
       }),
     });
     const data = await res.json();
