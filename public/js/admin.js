@@ -3,6 +3,10 @@
 
 import { auth, onAuthStateChanged, signOut } from "./firebase-client.js";
 
+// إعدادات Cloudinary
+const CLOUDINARY_CLOUD_NAME = "urqib8nz";
+const CLOUDINARY_UPLOAD_PRESET = "my_preset";
+
 const loadingScreen = document.getElementById("loading-screen");
 const claimScreen = document.getElementById("claim-screen");
 const dashboard = document.getElementById("dashboard");
@@ -97,6 +101,62 @@ if (profileAvatar && avatarPreviewImg) {
     avatarPreviewImg.src = url || "https://via.placeholder.com/150";
   });
 }
+
+// ---------- دالة رفع الصور السحابي إلى Cloudinary من الجوال ----------
+async function uploadImageToCloudinary(file) {
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+    method: "POST",
+    body: formData
+  });
+  
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error?.message || "فشل رفع الصورة");
+  }
+  return data.secure_url;
+}
+
+// إضافة زر اختيار ملف صورة من الجهاز بجانب خانة رابط الصورة (إن لم يكن موجوداً في HTML سنحقنه برمجياً أو ندعمه)
+document.addEventListener("DOMContentLoaded", () => {
+  if (profileAvatar && profileAvatar.parentNode) {
+    const uploadWrapper = document.createElement("div");
+    uploadWrapper.style.marginTop = "8px";
+    uploadWrapper.innerHTML = `
+      <label class="btn-upload-file" style="display: inline-block; background: #4f46e5; color: white; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 14px;">
+        <i class="fa-solid fa-cloud-arrow-up"></i> رفع صورة من الاستديو / الجهاز
+        <input type="file" id="cloudinary-file-input" accept="image/*" style="display: none;">
+      </label>
+      <span id="upload-progress-text" style="margin-inline-start: 10px; font-size: 13px; color: #a1a1aa;"></span>
+    `;
+    profileAvatar.parentNode.appendChild(uploadWrapper);
+
+    const fileInput = document.getElementById("cloudinary-file-input");
+    const progressText = document.getElementById("upload-progress-text");
+
+    fileInput.addEventListener("change", async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      try {
+        progressText.textContent = "جاري الرفع...";
+        const url = await uploadImageToCloudinary(file);
+        profileAvatar.value = url;
+        if (avatarPreviewImg) {
+          avatarPreviewImg.src = url;
+        }
+        progressText.textContent = "تم الرفع بنجاح ✅";
+        setTimeout(() => { progressText.textContent = ""; }, 3000);
+      } catch (err) {
+        console.error(err);
+        progressText.textContent = "خطأ في الرفع ❌";
+      }
+    });
+  }
+});
 
 // ---------- حجز اسم المستخدم ----------
 let checkTimer = null;
