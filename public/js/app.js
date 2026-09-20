@@ -1,6 +1,5 @@
 // public/js/app.js
 // يجلب بيانات صفحة المستخدم (حسب اسم المستخدم في مسار الرابط) من السيرفر ويعرضها ديناميكياً
-// مثال: domain.com/ibrahim -> يقرأ "ibrahim" من الرابط ثم يجلب /api/public/ibrahim
 
 const ICONS = {
   discord: "fa-brands fa-discord",
@@ -58,8 +57,21 @@ function renderProfile(profile) {
   if (!profile) return;
   document.getElementById("name").textContent = profile.name || profile.username || "NoL";
   document.getElementById("bio").textContent = profile.bio || "";
+  
   const avatar = document.getElementById("avatar");
   avatar.src = profile.avatarUrl || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(profile.name || profile.username || "NoL")}`;
+  
+  // عرض البنر بشكل صحيح عند توفره في بيانات البروفايل
+  const bannerContainer = document.getElementById("profile-banner");
+  const bannerImg = document.getElementById("banner-img");
+  
+  if (profile.bannerUrl && profile.bannerUrl.trim() !== "") {
+    bannerImg.src = profile.bannerUrl;
+    bannerContainer.style.display = "block";
+  } else {
+    bannerContainer.style.display = "none";
+  }
+
   document.title = profile.name ? `${profile.name} | NoL` : "NoL";
 }
 
