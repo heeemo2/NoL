@@ -19,6 +19,7 @@ const copyLinkBtn = document.getElementById("copy-link-btn");
 const profileName = document.getElementById("profile-name");
 const profileBio = document.getElementById("profile-bio");
 const profileAvatar = document.getElementById("profile-avatar");
+const avatarPreviewImg = document.getElementById("avatar-preview-img"); // عنصر معاينة الصورة الدائرية
 const saveProfileBtn = document.getElementById("save-profile-btn");
 const profileMsg = document.getElementById("profile-msg");
 
@@ -72,6 +73,14 @@ async function loadMe() {
     profileName.value = data.profile.name || "";
     profileBio.value = data.profile.bio || "";
     profileAvatar.value = data.profile.avatarUrl || "";
+    
+    // تحديث صورة البروفايل الدائرية في المعاينة
+    if (data.profile.avatarUrl && avatarPreviewImg) {
+      avatarPreviewImg.src = data.profile.avatarUrl;
+    } else if (avatarPreviewImg) {
+      avatarPreviewImg.src = "https://via.placeholder.com/150";
+    }
+
     renderLinksAdmin(data.links || []);
 
     showOnly(dashboard);
@@ -79,6 +88,14 @@ async function loadMe() {
     console.error(err);
     showOnly(claimScreen);
   }
+}
+
+// تحديث المعاينة مباشرة أثناء الكتابة في خانة رابط الصورة
+if (profileAvatar && avatarPreviewImg) {
+  profileAvatar.addEventListener("input", () => {
+    const url = profileAvatar.value.trim();
+    avatarPreviewImg.src = url || "https://via.placeholder.com/150";
+  });
 }
 
 // ---------- حجز اسم المستخدم ----------
@@ -150,7 +167,6 @@ function flashMyLinkBox() {
   if (!box) return;
   box.scrollIntoView({ behavior: "smooth", block: "center" });
   box.classList.remove("highlight");
-  // إعادة تشغيل الـ animation حتى لو استُدعيت الدالة أكثر من مرة متتالية
   void box.offsetWidth;
   box.classList.add("highlight");
   setTimeout(() => box.classList.remove("highlight"), 1500);
