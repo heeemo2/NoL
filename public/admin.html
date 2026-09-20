@@ -56,19 +56,28 @@
       <section class="section">
         <h3>الملف الشخصي</h3>
         
-        <!-- معاينة البنر والصورة الدائرية -->
-        <div class="profile-banner-preview" id="banner-preview-container">
-          <div class="avatar-circle-wrapper">
+        <!-- حقل رفع ملف مخفي يتم تفعيله عند الضغط على البنر أو الدائرة -->
+        <input type="file" id="profile-image-input" accept="image/*" style="display: none;" />
+        <input type="file" id="banner-image-input" accept="image/*" style="display: none;" />
+
+        <!-- البنر والصورة الدائرية القابلان للضغط -->
+        <div class="profile-banner-preview" id="banner-preview-container" title="اضغط لتغيير البنر">
+          <div class="banner-edit-overlay"><i class="fa-solid fa-camera"></i></div>
+          <div class="avatar-circle-wrapper" id="avatar-container" title="اضغط لتغيير الصورة الشخصية">
+            <div class="avatar-edit-overlay"><i class="fa-solid fa-camera"></i></div>
             <img id="avatar-preview-img" src="" alt="صورة البروفايل" />
           </div>
         </div>
 
         <label>الاسم</label>
         <input type="text" id="profile-name" placeholder="اسمك" />
+        
         <label>النبذة التعريفية</label>
         <textarea id="profile-bio" rows="2" placeholder="نبذة بسيطة عنك"></textarea>
-        <label>رابط الصورة الشخصية (avatar URL)</label>
-        <input type="text" id="profile-avatar" placeholder="https://..." />
+        
+        <!-- حقل الرابط مخفي أو ثانوي إذا احتجته برمجياً، لكن التصميم يعتمد على الضغط المباشر -->
+        <input type="hidden" id="profile-avatar" />
+
         <button id="save-profile-btn" class="btn primary">حفظ البروفايل</button>
         <p id="profile-msg" class="msg-text"></p>
       </section>
