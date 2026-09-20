@@ -28,11 +28,39 @@ body {
   color: var(--text-main);
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  padding: 32px 16px;
+  padding: 0;
 }
 
+/* الهيدر العلوي - اسم الموقع في المنتصف تماماً */
+.site-header {
+  width: 100%;
+  background: rgba(15, 13, 26, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.site-header .logo {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+
+/* حاوية الصفحة الرئيسية وسط الشاشة */
 .page {
   width: 100%;
   max-width: 460px;
@@ -40,6 +68,8 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  padding: 24px 16px;
+  margin: auto;
 }
 
 .card {
@@ -137,10 +167,21 @@ body {
   padding: 20px 0;
 }
 
+/* الفوتر في الأسفل تماماً */
 .footer {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--text-sub);
-  opacity: 0.7;
+  opacity: 0.8;
+  padding: 20px;
+  text-align: center;
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(15, 13, 26, 0.4);
+}
+
+.footer span {
+  color: var(--accent);
+  font-weight: bold;
 }
 
 @media (max-width: 380px) {
