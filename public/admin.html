@@ -12,7 +12,7 @@
 </head>
 <body>
   
-  <!-- هيدر اسم الموقع NoL -->
+  <!-- هيدر شعار الموقع NoL في الأعلى في المنتصف -->
   <header class="site-header">
     <div class="logo">NoL</div>
     <button id="logout-btn-header" class="btn ghost small" style="display:none;">تسجيل الخروج</button>
@@ -20,12 +20,12 @@
 
   <div class="admin-page">
 
-    <!-- شاشة تحميل أولية (أثناء التحقق من حالة تسجيل الدخول) -->
+    <!-- شاشة تحميل أولية -->
     <div id="loading-screen" class="admin-card">
-      <p>جارٍ التحقق...</p>
+      <p style="text-align: center;">جارٍ التحقق...</p>
     </div>
 
-    <!-- خطوة حجز اسم المستخدم (تظهر فقط إذا لم يحجزه المستخدم بعد) -->
+    <!-- خطوة حجز اسم المستخدم -->
     <div id="claim-screen" class="admin-card" style="display:none">
       <h2>اختر رابط صفحتك</h2>
       <p class="auth-subtitle">هذا هو الرابط الذي ستشاركه مع الآخرين</p>
@@ -38,31 +38,23 @@
       <p class="auth-error" id="claim-error"></p>
     </div>
 
-    <!-- لوحة التحكم -->
+    <!-- لوحة التحكم المرتبة -->
     <div id="dashboard" class="admin-card dashboard-card" style="display:none;">
       <div class="admin-header">
         <h2>لوحة التحكم</h2>
         <button id="logout-btn" class="btn ghost small">تسجيل الخروج</button>
       </div>
 
-      <div class="my-link-box" id="my-link-box">
-        <div class="my-link-box-title">رابط صفحتك الشخصية</div>
-        <div class="my-link-box-row">
-          <a id="my-link" href="#" target="_blank"></a>
-          <button id="copy-link-btn" class="btn primary small"><i class="fa-solid fa-copy"></i> نسخ الرابط</button>
-        </div>
-      </div>
-
       <section class="section">
         <h3>الملف الشخصي</h3>
         
-        <!-- حقل رفع ملف مخفي يتم تفعيله عند الضغط على البنر أو الدائرة -->
+        <!-- حقول رفع الصور المخفية -->
         <input type="file" id="profile-image-input" accept="image/*" style="display: none;" />
         <input type="file" id="banner-image-input" accept="image/*" style="display: none;" />
 
-        <!-- البنر والصورة الدائرية القابلان للضغط -->
+        <!-- البنر والصورة الدائرية البارزة فوقه -->
         <div class="profile-banner-preview" id="banner-preview-container" title="اضغط لتغيير البنر">
-          <div class="banner-edit-overlay"><i class="fa-solid fa-camera"></i></div>
+          <div class="banner-edit-overlay"><i class="fa-solid fa-camera"></i> تغير البنر</div>
           <div class="avatar-circle-wrapper" id="avatar-container" title="اضغط لتغيير الصورة الشخصية">
             <div class="avatar-edit-overlay"><i class="fa-solid fa-camera"></i></div>
             <img id="avatar-preview-img" src="" alt="صورة البروفايل" />
@@ -75,7 +67,6 @@
         <label>النبذة التعريفية</label>
         <textarea id="profile-bio" rows="2" placeholder="نبذة بسيطة عنك"></textarea>
         
-        <!-- حقل الرابط مخفي أو ثانوي إذا احتجته برمجياً، لكن التصميم يعتمد على الضغط المباشر -->
         <input type="hidden" id="profile-avatar" />
 
         <button id="save-profile-btn" class="btn primary">حفظ البروفايل</button>
@@ -108,10 +99,22 @@
           <button id="add-link-btn" class="btn primary">إضافة الرابط</button>
         </div>
       </section>
+
+      <!-- صندوق نسخ الرابط في أسفل لوحة التحكم -->
+      <section class="section" style="border-bottom: none; padding-bottom: 0;">
+        <div class="my-link-box" id="my-link-box">
+          <div class="my-link-box-title">رابط صفحتك الشخصية (انسخه وشاركه مع أصدقائك)</div>
+          <div class="my-link-box-row">
+            <a id="my-link" href="#" target="_blank"></a>
+            <button id="copy-link-btn" class="btn primary small"><i class="fa-solid fa-copy"></i> نسخ الرابط</button>
+          </div>
+        </div>
+      </section>
+
     </div>
   </div>
 
-  <!-- حقوق النشر في أسفل الصفحة -->
+  <!-- حقوق النشر في أسفل الصفحة تماماً -->
   <footer class="site-footer">
     <p>جميع الحقوق محفوظة © 2026 <span>NoL</span></p>
   </footer>
