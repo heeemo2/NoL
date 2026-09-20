@@ -50,7 +50,7 @@
   letter-spacing: 1px;
 }
 
-/* تنسيق البنر ومعاينة الصورة */
+/* تنسيق البنر قابل الضغط */
 .profile-banner-preview {
   position: relative;
   width: 100%;
@@ -58,8 +58,28 @@
   background: linear-gradient(135deg, #6366f1, #a855f7);
   border-radius: 12px;
   margin-bottom: 50px;
+  cursor: pointer;
+  overflow: hidden;
 }
 
+.banner-edit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.profile-banner-preview:hover .banner-edit-overlay {
+  opacity: 1;
+}
+
+/* تنسيق الدائرة الشخصية قابلة الضغط */
 .avatar-circle-wrapper {
   position: absolute;
   bottom: -35px;
@@ -70,12 +90,33 @@
   border: 4px solid #1e1b4b;
   overflow: hidden;
   background: #333;
+  cursor: pointer;
+}
+
+.avatar-edit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  z-index: 2;
+}
+
+.avatar-circle-wrapper:hover .avatar-edit-overlay {
+  opacity: 1;
 }
 
 .avatar-circle-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 1;
 }
 
 .my-link-box {
