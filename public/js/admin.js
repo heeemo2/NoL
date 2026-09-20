@@ -22,11 +22,10 @@ const copyLinkBtn = document.getElementById("copy-link-btn");
 const profileName = document.getElementById("profile-name");
 const profileBio = document.getElementById("profile-bio");
 const profileAvatar = document.getElementById("profile-avatar");
-const avatarPreviewImg = document.getElementById("avatar-preview-img"); // عنصر معاينة الصورة الدائرية
+const avatarPreviewImg = document.getElementById("avatar-preview-img"); 
 const saveProfileBtn = document.getElementById("save-profile-btn");
 const profileMsg = document.getElementById("profile-msg");
 
-// حقول إدخال الملفات المخفية للرفع المباشر عبر الضغط على البنر والدائرة
 const profileImageInput = document.getElementById("profile-image-input");
 const bannerImageInput = document.getElementById("banner-image-input");
 const bannerPreviewContainer = document.getElementById("banner-preview-container");
@@ -38,7 +37,7 @@ const newLinkIcon = document.getElementById("new-link-icon");
 const addLinkBtn = document.getElementById("add-link-btn");
 
 let currentUser = null;
-let bannerUrlValue = ""; // لحفظ رابط البنر إذا كان مدعوماً في قاعدة البيانات
+let bannerUrlValue = "";
 
 function showOnly(el) {
   [loadingScreen, claimScreen, dashboard].forEach((s) => (s.style.display = "none"));
@@ -64,7 +63,27 @@ logoutBtn.addEventListener("click", async () => {
   location.href = "/login.html";
 });
 
-// ---------- تحميل بيانات حساب المستخدم الحالي ----------
+// دالة تحديد الأيقونة واللون لكل منصة
+function getPlatformIconClass(iconName) {
+  switch ((iconName || "").toLowerCase()) {
+    case "discord": return { class: "fa-brands fa-discord", color: "#5865F2" };
+    case "snapchat": return { class: "fa-brands fa-snapchat", color: "#FFFC00" };
+    case "tiktok": return { class: "fa-brands fa-tiktok", color: "#000000" };
+    case "instagram": return { class: "fa-brands fa-instagram", color: "#E1306C" };
+    case "x":
+    case "twitter": return { class: "fa-brands fa-x-twitter", color: "#ffffff" };
+    case "whatsapp": return { class: "fa-brands fa-whatsapp", color: "#25D366" };
+    case "youtube": return { class: "fa-brands fa-youtube", color: "#FF0000" };
+    case "telegram": return { class: "fa-brands fa-telegram", color: "#229ED9" };
+    case "facebook": return { class: "fa-brands fa-facebook", color: "#1877F2" };
+    case "spotify": return { class: "fa-brands fa-spotify", color: "#1DB954" };
+    case "twitch": return { class: "fa-brands fa-twitch", color: "#9146FF" };
+    case "github": return { class: "fa-brands fa-github", color: "#ffffff" };
+    default: return { class: "fa-solid fa-link", color: "#a855f7" };
+  }
+}
+
+// تحميل بيانات حساب المستخدم الحالي
 async function loadMe() {
   try {
     const headers = await authHeaders();
@@ -83,14 +102,12 @@ async function loadMe() {
     profileBio.value = data.profile.bio || "";
     profileAvatar.value = data.profile.avatarUrl || "";
     
-    // تحديث صورة البروفايل الدائرية في المعاينة
     if (data.profile.avatarUrl && avatarPreviewImg) {
       avatarPreviewImg.src = data.profile.avatarUrl;
     } else if (avatarPreviewImg) {
       avatarPreviewImg.src = "https://via.placeholder.com/150";
     }
 
-    // تحديث البنر إذا وجد في البيانات
     if (data.profile.bannerUrl && bannerPreviewContainer) {
       bannerUrlValue = data.profile.bannerUrl;
       bannerPreviewContainer.style.backgroundImage = `url('${data.profile.bannerUrl}')`;
@@ -99,7 +116,6 @@ async function loadMe() {
     }
 
     renderLinksAdmin(data.links || []);
-
     showOnly(dashboard);
   } catch (err) {
     console.error(err);
@@ -107,7 +123,6 @@ async function loadMe() {
   }
 }
 
-// تحديث المعاينة مباشرة أثناء الكتابة في خانة رابط الصورة المخفية (إن وجدت)
 if (profileAvatar && avatarPreviewImg) {
   profileAvatar.addEventListener("input", () => {
     const url = profileAvatar.value.trim();
@@ -115,7 +130,7 @@ if (profileAvatar && avatarPreviewImg) {
   });
 }
 
-// ---------- دالة رفع الصور السحابي إلى Cloudinary من الجوال أو الكمبيوتر ----------
+// رفع الصور لـ Cloudinary
 async function uploadImageToCloudinary(file) {
   const formData = new FormData();
   formData.append("file", file);
@@ -133,13 +148,11 @@ async function uploadImageToCloudinary(file) {
   return data.secure_url;
 }
 
-// ---------- تفعيل الضغط المباشر على الدائرة الشخصية للرفع ----------
+// ضغط الدائرة لرفع الصورة الشخصية
 if (avatarPreviewImg && profileImageInput) {
   const avatarWrapper = document.getElementById("avatar-container");
   if (avatarWrapper) {
-    avatarWrapper.addEventListener("click", () => {
-      profileImageInput.click();
-    });
+    avatarWrapper.addEventListener("click", () => profileImageInput.click());
   }
 
   profileImageInput.addEventListener("change", async (e) => {
@@ -160,18 +173,16 @@ if (avatarPreviewImg && profileImageInput) {
   });
 }
 
-// ---------- تفعيل الضغط المباشر على البنر للرفع ----------
+// ضغط البنر لرفع صورة البنر
 if (bannerPreviewContainer && bannerImageInput) {
-  bannerPreviewContainer.addEventListener("click", () => {
-    bannerImageInput.click();
-  });
+  bannerPreviewContainer.addEventListener("click", () => bannerImageInput.click());
 
   bannerImageInput.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     try {
-      profileMsg.textContent = "جاري رفع صورة البنر...";
+      profileMsg.textContent = "جاري رفع البنر...";
       const url = await uploadImageToCloudinary(file);
       bannerUrlValue = url;
       bannerPreviewContainer.style.backgroundImage = `url('${url}')`;
@@ -186,7 +197,7 @@ if (bannerPreviewContainer && bannerImageInput) {
   });
 }
 
-// ---------- حجز اسم المستخدم ----------
+// حجز اسم المستخدم
 let checkTimer = null;
 claimUsernameInput.addEventListener("input", () => {
   const raw = claimUsernameInput.value.trim().toLowerCase();
@@ -236,7 +247,7 @@ claimBtn.addEventListener("click", async () => {
   }
 });
 
-// ---------- نسخ الرابط ----------
+// نسخ الرابط
 const COPY_BTN_DEFAULT_HTML = copyLinkBtn.innerHTML;
 
 copyLinkBtn.addEventListener("click", async () => {
@@ -244,12 +255,9 @@ copyLinkBtn.addEventListener("click", async () => {
     await navigator.clipboard.writeText(myLinkEl.href);
     copyLinkBtn.innerHTML = '<i class="fa-solid fa-check"></i> تم النسخ ✅';
     setTimeout(() => (copyLinkBtn.innerHTML = COPY_BTN_DEFAULT_HTML), 1500);
-  } catch (err) {
-    // تجاهل - بعض المتصفحات تمنع النسخ التلقائي بدون تفاعل مباشر
-  }
+  } catch (err) {}
 });
 
-// ---------- إبراز رابط الصفحة (يُستدعى بعد أي عملية حفظ ناجحة) ----------
 function flashMyLinkBox() {
   const box = document.getElementById("my-link-box");
   if (!box) return;
@@ -260,7 +268,7 @@ function flashMyLinkBox() {
   setTimeout(() => box.classList.remove("highlight"), 1500);
 }
 
-// ---------- حفظ البروفايل ----------
+// حفظ البروفايل
 saveProfileBtn.addEventListener("click", async () => {
   profileMsg.textContent = "";
   try {
@@ -287,23 +295,24 @@ saveProfileBtn.addEventListener("click", async () => {
   }
 });
 
-// ---------- إدارة الروابط ----------
+// عرض الروابط مع أيقونات المنصات المخصصة
 function renderLinksAdmin(links) {
   linksList.innerHTML = "";
   links.forEach((link, index) => {
+    const iconMeta = getPlatformIconClass(link.icon);
     const row = document.createElement("div");
     row.className = "link-item";
     row.innerHTML = `
-      <i class="fa-solid fa-grip-lines"></i>
+      <i class="${iconMeta.class} platform-icon" style="color: ${iconMeta.color};"></i>
       <div class="link-item-info">
         <div class="link-item-label">${escapeHtml(link.label)}</div>
         <div class="link-item-url">${escapeHtml(link.url)}</div>
       </div>
       <div class="link-item-actions">
-        <button title="تحريك للأعلى" data-action="up">↑</button>
-        <button title="تحريك للأسفل" data-action="down">↓</button>
-        <button title="تعديل" data-action="edit">✎</button>
-        <button title="حذف" data-action="delete">✕</button>
+        <button title="تحريك للأعلى" data-action="up"><i class="fa-solid fa-chevron-up"></i></button>
+        <button title="تحريك للأسفل" data-action="down"><i class="fa-solid fa-chevron-down"></i></button>
+        <button title="تعديل" data-action="edit"><i class="fa-solid fa-pen"></i></button>
+        <button title="حذف" data-action="delete"><i class="fa-solid fa-xmark"></i></button>
       </div>
     `;
     row.querySelector('[data-action="up"]').addEventListener("click", () => moveLink(links, index, -1));
