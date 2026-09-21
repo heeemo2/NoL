@@ -89,6 +89,7 @@ router.post("/account/claim-username", requireAuth, async (req, res) => {
       name: oldProfile.name || (req.email ? req.email.split("@")[0] : username),
       bio: oldProfile.bio || "",
       avatarUrl: oldProfile.avatarUrl || "",
+      bannerUrl: oldProfile.bannerUrl || "",
       email: req.email || oldProfile.email || "",
     });
 
@@ -119,15 +120,16 @@ router.get("/me", requireAuth, async (req, res) => {
   }
 });
 
-// تحديث البروفايل الخاص بي (الاسم، النبذة، الصورة) - لا يغيّر اسم المستخدم
+// تحديث البروفايل الخاص بي (الاسم، النبذة، الصورة، البنر) - لا يغيّر اسم المستخدم
 router.post("/me/profile", requireAuth, async (req, res) => {
   try {
-    const { name, bio, avatarUrl } = req.body || {};
+    const { name, bio, avatarUrl, bannerUrl } = req.body || {};
     const db = getDb();
     await db.ref(`users/${req.uid}/profile`).update({
       name: name || "",
       bio: bio || "",
       avatarUrl: avatarUrl || "",
+      bannerUrl: bannerUrl || "",
     });
     res.json({ ok: true });
   } catch (err) {
@@ -207,13 +209,14 @@ router.get("/public/:username", async (req, res) => {
 
     const snap = await db.ref(`users/${uid}`).once("value");
     const data = snap.val() || {};
-    const profile = data.profile || { name: username, bio: "", avatarUrl: "", username };
+    const profile = data.profile || { name: username, bio: "", avatarUrl: "", bannerUrl: "", username };
 
     res.json({
       profile: {
         name: profile.name || username,
         bio: profile.bio || "",
         avatarUrl: profile.avatarUrl || "",
+        bannerUrl: profile.bannerUrl || "",
         username: profile.username || username,
       },
       links: linksObjToArray(data.links),
