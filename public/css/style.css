@@ -1,15 +1,15 @@
 :root {
-  --bg-1: #0f0c29;
-  --bg-2: #302b63;
-  --bg-3: #24243e;
-  --card-bg: rgba(255, 255, 255, 0.06);
-  --card-border: rgba(255, 255, 255, 0.12);
-  --text-main: #f5f5f7;
-  --text-sub: #b8b8c7;
-  --accent: #8a7fff;
-  --accent-2: #ff7fb0;
-  --link-bg: rgba(255, 255, 255, 0.08);
-  --link-bg-hover: rgba(255, 255, 255, 0.16);
+  --bg-1: #070a0f;
+  --bg-2: #121822;
+  --bg-3: #1a2230;
+  --card-bg: rgba(18, 24, 33, 0.75);
+  --card-border: rgba(212, 175, 55, 0.25);
+  --text-main: #f3f4f6;
+  --text-sub: #b3b8c2;
+  --accent: #d4af37;
+  --accent-2: #aa7c11;
+  --link-bg: rgba(212, 175, 55, 0.04);
+  --link-bg-hover: rgba(212, 175, 55, 0.1);
 }
 
 * {
@@ -23,7 +23,8 @@ html, body {
 
 body {
   font-family: 'Tajawal', system-ui, sans-serif;
-  background: linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
+  background: radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.06) 0%, transparent 50%),
+              linear-gradient(135deg, var(--bg-1), var(--bg-2) 50%, var(--bg-3));
   background-attachment: fixed;
   color: var(--text-main);
   min-height: 100vh;
@@ -37,10 +38,10 @@ body {
 /* هيدر الموقع الموحد - اسم الموقع في المنتصف تماماً بكل الصفحات */
 .site-header {
   width: 100%;
-  background: rgba(15, 13, 26, 0.8);
+  background: rgba(7, 10, 15, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,6 +59,7 @@ body {
   -webkit-text-fill-color: transparent;
   letter-spacing: 2px;
   text-decoration: none;
+  text-shadow: 0 2px 10px rgba(212, 175, 55, 0.15);
 }
 
 /* تنسيق صفحة الهبوط وتسجيل الدخول */
@@ -82,7 +84,7 @@ body {
   -webkit-backdrop-filter: blur(18px);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 }
 
 .auth-logo {
@@ -94,6 +96,7 @@ body {
   margin-bottom: 8px;
   letter-spacing: 2px;
   text-align: center;
+  text-shadow: 0 2px 12px rgba(212, 175, 55, 0.2);
 }
 
 .auth-subtitle {
@@ -130,7 +133,7 @@ body {
   width: 100%;
   padding: 13px 16px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   border: 1px solid var(--card-border);
   color: var(--text-main);
   font-family: 'Tajawal', sans-serif;
@@ -141,11 +144,11 @@ body {
 
 .auth-field input:focus {
   border-color: var(--accent);
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(212, 175, 55, 0.05);
 }
 
 .auth-field input::placeholder {
-  color: rgba(184, 184, 199, 0.4);
+  color: rgba(179, 184, 194, 0.4);
 }
 
 /* زر الدخول */
@@ -161,7 +164,7 @@ body {
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(138, 127, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
 
@@ -171,7 +174,7 @@ body {
 }
 
 .auth-error {
-  color: #ff7fb0;
+  color: #ff8080;
   font-size: 13px;
   text-align: center;
   margin: 0;
@@ -218,7 +221,7 @@ body {
 .landing-links a.primary {
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #fff;
-  box-shadow: 0 4px 15px rgba(138, 127, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
 }
 
 .landing-links a.ghost {
@@ -256,7 +259,7 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
   overflow: hidden;
 }
 
@@ -292,7 +295,7 @@ body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  background: #1c1c2b;
+  background: #121822;
   display: block;
   border: 3px solid var(--bg-3);
 }
@@ -344,6 +347,7 @@ body {
   width: 22px;
   text-align: center;
   flex-shrink: 0;
+  color: var(--accent);
 }
 
 .link-label {
@@ -366,8 +370,8 @@ body {
   padding: 20px;
   text-align: center;
   width: 100%;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-  background: rgba(15, 13, 26, 0.4);
+  border-top: 1px solid rgba(212, 175, 55, 0.1);
+  background: rgba(7, 10, 15, 0.6);
 }
 
 .footer span {
